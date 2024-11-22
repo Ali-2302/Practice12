@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">apache</span><span class="s2">.</span><span class="s1">poi</span><span class="s2">.</span><span class="s1">ss</span><span class="s2">.</span><span class="s1">usermodel</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">apache</span><span class="s2">.</span><span class="s1">poi</span><span class="s2">.</span><span class="s1">xssf</span><span class="s2">.</span><span class="s1">usermodel</span><span class="s2">.</span><span class="s1">XSSFWorkbook</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">FileInputStream</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">IOException</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">Main </span><span class="s2">{</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s1">String excelFilePath </span><span class="s2">= </span><span class="s3">&quot;src/students.xlsx&quot;</span><span class="s2">;</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Student</span><span class="s2">&gt; </span><span class="s1">students </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+
+
+        <span class="s0">try </span><span class="s2">(</span><span class="s1">FileInputStream fis </span><span class="s2">= </span><span class="s0">new </span><span class="s1">FileInputStream</span><span class="s2">(</span><span class="s1">excelFilePath</span><span class="s2">);</span>
+             <span class="s1">Workbook workbook </span><span class="s2">= </span><span class="s0">new </span><span class="s1">XSSFWorkbook</span><span class="s2">(</span><span class="s1">fis</span><span class="s2">)) {</span>
+
+            <span class="s1">Sheet sheet </span><span class="s2">= </span><span class="s1">workbook</span><span class="s2">.</span><span class="s1">getSheetAt</span><span class="s2">(</span><span class="s4">0</span><span class="s2">);</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s4">1</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt;= </span><span class="s1">sheet</span><span class="s2">.</span><span class="s1">getLastRowNum</span><span class="s2">(); </span><span class="s1">i</span><span class="s2">++) {</span>
+                <span class="s1">Row row </span><span class="s2">= </span><span class="s1">sheet</span><span class="s2">.</span><span class="s1">getRow</span><span class="s2">(</span><span class="s1">i</span><span class="s2">);</span>
+                <span class="s1">String name </span><span class="s2">= </span><span class="s1">row</span><span class="s2">.</span><span class="s1">getCell</span><span class="s2">(</span><span class="s4">0</span><span class="s2">).</span><span class="s1">getStringCellValue</span><span class="s2">();</span>
+                <span class="s0">double </span><span class="s1">currentScholarship </span><span class="s2">= </span><span class="s1">row</span><span class="s2">.</span><span class="s1">getCell</span><span class="s2">(</span><span class="s4">1</span><span class="s2">).</span><span class="s1">getNumericCellValue</span><span class="s2">();</span>
+                <span class="s1">students</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Student</span><span class="s2">(</span><span class="s1">name</span><span class="s2">, </span><span class="s1">currentScholarship</span><span class="s2">));</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">) {</span>
+            <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+        <span class="s2">}</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Student student </span><span class="s2">: </span><span class="s1">students</span><span class="s2">) {</span>
+            <span class="s1">student</span><span class="s2">.</span><span class="s1">increaseScholarship</span><span class="s2">(</span><span class="s4">10</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;Name: &quot; </span><span class="s2">+ </span><span class="s1">student</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">() +</span>
+                    <span class="s3">&quot;, Current: &quot; </span><span class="s2">+ </span><span class="s1">student</span><span class="s2">.</span><span class="s1">getCurrentScholarship</span><span class="s2">() +</span>
+                    <span class="s3">&quot;, New: &quot; </span><span class="s2">+ </span><span class="s1">student</span><span class="s2">.</span><span class="s1">getNewScholarship</span><span class="s2">());</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>
